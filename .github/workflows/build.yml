@@ -1,1 +1,35 @@
+name: Build RPK
 
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pobierz repozytorium
+        uses: actions/checkout@v4
+
+      - name: Zainstaluj Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Zainstaluj zależności
+        run: npm install
+
+      - name: Zbuduj RPK
+        run: npm run build
+
+      - name: Znajdź RPK
+        run: find . -name "*.rpk" -print
+
+      - name: Udostępnij RPK
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-rpk
+          path: "**/*.rpk"
