@@ -1,0 +1,80 @@
+<template>
+  <div class="container">
+    <text class="title">Kalkulator</text>
+    <text class="result">0</text>
+
+    <div class="row">
+      <button class="btn" value="7" onclick="press"></button>
+      <button class="btn" value="8" onclick="press"></button>
+      <button class="btn" value="9" onclick="press"></button>
+      <button class="btn" value="÷" onclick="press"></button>
+    </div>
+
+    <div class="row">
+      <button class="btn" value="4" onclick="press"></button>
+      <button class="btn" value="5" onclick="press"></button>
+      <button class="btn" value="6" onclick="press"></button>
+      <button class="btn" value="×" onclick="press"></button>
+    </div>
+
+    <div class="row">
+      <button class="btn" value="1" onclick="press"></button>
+      <button class="btn" value="2" onclick="press"></button>
+      <button class="btn" value="3" onclick="press"></button>
+      <button class="btn" value="−" onclick="press"></button>
+    </div>
+
+    <div class="row">
+      <button class="btn" value="0" onclick="press"></button>
+      <button class="btn" value="C" onclick="clear"></button>
+      <button class="btn" value="=" onclick="calculate"></button>
+      <button class="btn" value="+" onclick="press"></button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    display: "0"
+  },
+
+  press(value) {
+    this.display = value
+  },
+
+  clear() {
+    this.display = "0"
+  },
+
+  calculate() {
+    this.display = "0"
+  }
+}
+</script>
+
+<style>
+.container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 28px;
+}
+
+.result {
+  font-size: 40px;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.btn {
+  width: 45px;
+  height: 45px;
+  margin: 3px;
+}
+</style>
