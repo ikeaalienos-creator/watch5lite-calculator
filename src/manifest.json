@@ -8,12 +8,12 @@
   "config": {
     "logLevel": "log",
     "designWidth": 216
-  },
+      },
   "router": {
     "entry": "Index",
     "pages": {
       "Index": {
-        "component": "index"
+        "component": "index
       }
     }
   },
