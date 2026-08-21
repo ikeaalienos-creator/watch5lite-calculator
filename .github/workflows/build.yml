@@ -25,15 +25,22 @@ jobs:
       - name: Build RPK
         run: npm run build
 
-      - name: Show RPK files
+      - name: Show build result
         run: |
-          echo "Searching for RPK..."
+          echo "===== ROOT ====="
+          ls -la
+          echo "===== DIST ====="
+          ls -la dist 2>/dev/null || true
+          echo "===== BUILD ====="
+          ls -la build 2>/dev/null || true
+          echo "===== ALL RPK FILES ====="
           find . -type f -name "*.rpk" -print
+          echo "===== ALL FILES ====="
+          find dist build -type f -print 2>/dev/null || true
 
       - name: Upload RPK
         uses: actions/upload-artifact@v4
         with:
           name: calculator-rpk
-          path: |
-            dist/*.rpk
-            dist/**/*.rpk
+          path: "**/*.rpk"
+          if-no-files-found: error
