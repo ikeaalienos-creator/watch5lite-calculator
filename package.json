@@ -1,0 +1,11 @@
+{
+  "name": "watch5lite-calculator",
+  "version": "1.0.0",
+  "description": "Calculator for Xiaomi Vela watch",
+  "scripts": {
+    "build": "aiot build"
+  },
+  "devDependencies": {
+    "@aiot-toolkit/cli": "^2.0.0"
+  }
+}
