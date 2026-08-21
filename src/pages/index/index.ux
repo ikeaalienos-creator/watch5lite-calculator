@@ -1,54 +1,151 @@
 <template>
   <div class="container">
+
     <text class="title">Kalkulator</text>
-    <text class="result">0</text>
+
+    <text class="result">{{display}}</text>
 
     <div class="row">
-      <button class="btn" value="7" onclick="press"></button>
-      <button class="btn" value="8" onclick="press"></button>
-      <button class="btn" value="9" onclick="press"></button>
-      <button class="btn" value="÷" onclick="press"></button>
+      <input class="btn" type="button" value="7" onclick="press7"></input>
+      <input class="btn" type="button" value="8" onclick="press8"></input>
+      <input class="btn" type="button" value="9" onclick="press9"></input>
+      <input class="btn" type="button" value="÷" onclick="divide"></input>
     </div>
 
     <div class="row">
-      <button class="btn" value="4" onclick="press"></button>
-      <button class="btn" value="5" onclick="press"></button>
-      <button class="btn" value="6" onclick="press"></button>
-      <button class="btn" value="×" onclick="press"></button>
+      <input class="btn" type="button" value="4" onclick="press4"></input>
+      <input class="btn" type="button" value="5" onclick="press5"></input>
+      <input class="btn" type="button" value="6" onclick="press6"></input>
+      <input class="btn" type="button" value="×" onclick="multiply"></input>
     </div>
 
     <div class="row">
-      <button class="btn" value="1" onclick="press"></button>
-      <button class="btn" value="2" onclick="press"></button>
-      <button class="btn" value="3" onclick="press"></button>
-      <button class="btn" value="−" onclick="press"></button>
+      <input class="btn" type="button" value="1" onclick="press1"></input>
+      <input class="btn" type="button" value="2" onclick="press2"></input>
+      <input class="btn" type="button" value="3" onclick="press3"></input>
+      <input class="btn" type="button" value="−" onclick="subtract"></input>
     </div>
 
     <div class="row">
-      <button class="btn" value="0" onclick="press"></button>
-      <button class="btn" value="C" onclick="clear"></button>
-      <button class="btn" value="=" onclick="calculate"></button>
-      <button class="btn" value="+" onclick="press"></button>
+      <input class="btn" type="button" value="0" onclick="press0"></input>
+      <input class="btn" type="button" value="C" onclick="clearDisplay"></input>
+      <input class="btn" type="button" value="=" onclick="calculate"></input>
+      <input class="btn" type="button" value="+" onclick="add"></input>
     </div>
+
   </div>
 </template>
 
 <script>
 export default {
-  data: {
-    display: "0"
+  private: {
+    display: "0",
+    firstNumber: 0,
+    operator: "",
+    waitingForNumber: false
   },
 
-  press(value) {
-    this.display = value
+  press7() {
+    this.pressNumber("7")
   },
 
-  clear() {
-    this.display = "0"
+  press8() {
+    this.pressNumber("8")
+  },
+
+  press9() {
+    this.pressNumber("9")
+  },
+
+  press4() {
+    this.pressNumber("4")
+  },
+
+  press5() {
+    this.pressNumber("5")
+  },
+
+  press6() {
+    this.pressNumber("6")
+  },
+
+  press1() {
+    this.pressNumber("1")
+  },
+
+  press2() {
+    this.pressNumber("2")
+  },
+
+  press3() {
+    this.pressNumber("3")
+  },
+
+  press0() {
+    this.pressNumber("0")
+  },
+
+  pressNumber(number) {
+    if (this.waitingForNumber || this.display === "0") {
+      this.display = number
+      this.waitingForNumber = false
+    } else {
+      this.display = this.display + number
+    }
+  },
+
+  add() {
+    this.setOperator("+")
+  },
+
+  subtract() {
+    this.setOperator("-")
+  },
+
+  multiply() {
+    this.setOperator("*")
+  },
+
+  divide() {
+    this.setOperator("/")
+  },
+
+  setOperator(operator) {
+    this.firstNumber = Number(this.display)
+    this.operator = operator
+    this.waitingForNumber = true
   },
 
   calculate() {
+    var secondNumber = Number(this.display)
+    var result = 0
+
+    if (this.operator === "+") {
+      result = this.firstNumber + secondNumber
+    } else if (this.operator === "-") {
+      result = this.firstNumber - secondNumber
+    } else if (this.operator === "*") {
+      result = this.firstNumber * secondNumber
+    } else if (this.operator === "/") {
+      if (secondNumber === 0) {
+        this.display = "Error"
+        return
+      }
+      result = this.firstNumber / secondNumber
+    } else {
+      return
+    }
+
+    this.display = String(result)
+    this.operator = ""
+    this.waitingForNumber = true
+  },
+
+  clearDisplay() {
     this.display = "0"
+    this.firstNumber = 0
+    this.operator = ""
+    this.waitingForNumber = false
   }
 }
 </script>
@@ -65,7 +162,8 @@ export default {
 }
 
 .result {
-  font-size: 40px;
+  font-size: 32px;
+  margin: 8px;
 }
 
 .row {
