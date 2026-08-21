@@ -5,10 +5,11 @@
   "versionName": "1.0.0",
   "versionCode": 1,
   "minAPILevel": 1,
-  "config": {
+  "config": {  "config": {
     "logLevel": "log",
     "designWidth": 216
-      "router": {
+  },
+  "router": {
   "entry": "pages/index",
   "pages": {
     "pages/index": {
