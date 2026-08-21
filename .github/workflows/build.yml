@@ -1,48 +1,39 @@
 name: Build RPK
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Pobierz repozytorium
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v6
 
-      - name: Zainstaluj Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 20
 
-      - name: Zainstaluj zależności
+      - name: Install dependencies
         run: npm install
 
-      - name: Zbuduj RPK
+      - name: Build RPK
         run: npm run build
 
-      - name: Pokaż pliki po buildzie
-  run: |
-    echo "=== DIST ==="
-    find dist -type f -print 2>/dev/null || true
-    echo "=== WSZYSTKIE RPK ==="
-    find . -type f -name "*.rpk" -print
+      - name: Show RPK files
+        run: |
+          echo "Searching for RPK..."
+          find . -type f -name "*.rpk" -print
 
-- name: Udostępnij RPK
-  uses: actions/upload-artifact@v4
-  with:
-    name: calculator-rpk
-    path: |
-      dist/**/*.rpk
-      dist/*.rpk
-        
-
-      - name: Udostępnij RPK
+      - name: Upload RPK
         uses: actions/upload-artifact@v4
         with:
           name: calculator-rpk
-          path: "**/*.rpk"
+          path: |
+            dist/*.rpk
+            dist/**/*.rpk
