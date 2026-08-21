@@ -1,0 +1,23 @@
+{
+  "package": "com.agatka.calculator",
+  "name": "Calculator",
+  "icon": "/common/icon.png",
+  "versionName": "1.0.0",
+  "versionCode": 1,
+  "minAPILevel": 1,
+  "config": {
+    "logLevel": "log",
+    "designWidth": 216
+  },
+  "router": {
+    "entry": "Index",
+    "pages": {
+      "Index": {
+        "component": "index"
+      }
+    }
+  },
+  "deviceTypeList": [
+    "watch"
+  ]
+}
